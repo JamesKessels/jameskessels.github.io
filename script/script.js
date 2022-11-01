@@ -9,17 +9,19 @@ const proficienciesTitle = document.getElementById("proficienciesTitle");
 const proficienciesText = document.getElementById("proficienciesText");
 
 const projectBtns = document.getElementsByClassName("projectBtn");
+const cardTitles = document.getElementsByClassName("card-caption");
+const cardTexts = document.getElementsByClassName("card-text");
 
 let projects = JSON.parse(projectsEN);
 let generalText = JSON.parse(generalEN);
-mainText();
-
 let currentLang = "";
 let currProject = 0;
 
 const cardBtns = document.querySelectorAll('[data-button="card"]');
 console.log(cardBtns);
 
+mainText();
+changeCards();
 changeText(0);
 
 const radioButtons = document.querySelectorAll("input");
@@ -45,6 +47,7 @@ function changeLang(language) {
 
     changeCardBtns(lang);
     changeText(currProject);
+    changeCards();
     mainText();
 }
 
@@ -94,9 +97,17 @@ function changeText(projectNr) {
             projTool.innerHTML += "<li>" + projects[projectNr].projectTools[i] + "</li>";
         }
     }
+
     catch (error) {
         projName.innerHTML = "No project :("
         projText.innerHTML = "Sorry, this project cannot be found!"
         console.log(error);
+    }
+}
+
+function changeCards() {
+    for (let i = 0; i < cardTitles.length; i++) {
+        cardTitles[i].innerText = projects[i].projectName;
+        cardTexts[i].innerText = projects[i].cardText;
     }
 }
