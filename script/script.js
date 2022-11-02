@@ -21,7 +21,6 @@ let currentLang = "btnradio1";
 let currProject = 0;
 
 const cardBtns = document.querySelectorAll('[data-button="card"]');
-console.log(projectImages);
 
 mainText();
 changeCards();
@@ -119,7 +118,6 @@ function changeText(projectNr) {
     catch (error) {
         projName.innerHTML = "No project :("
         projText.innerHTML = "Sorry, this project cannot be found!"
-        console.log(error);
     }
 
     updateCarousel(projectNr);
@@ -149,7 +147,6 @@ function updateCarousel(projectNr) {
             carItem.className += " active";
         }
         carousel.append(carItem);
-        console.log("test");
     }
 
     if (projectImages[projectNr].img[1] <= 1) {
