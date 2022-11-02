@@ -7,6 +7,7 @@ const titleText = document.getElementById("titleText");
 const abtText = document.getElementById("abtText");
 const proficienciesTitle = document.getElementById("proficienciesTitle");
 const proficienciesText = document.getElementById("proficienciesText");
+const hireText = document.getElementById("whyHire");
 
 const projectBtns = document.getElementsByClassName("projectBtn");
 const cardTitles = document.getElementsByClassName("card-caption");
@@ -56,6 +57,7 @@ function mainText() {
     abtText.innerHTML = generalText[0].about[1];
     proficienciesTitle.innerHTML = generalText[0].proficiencies[0];
     proficienciesText.innerHTML = generalText[0].proficiencies[1];
+    whyHire.innerHTML = generalText[0].proficiencies[2];
 
     for (let i = 0; i < projectBtns.length; i++) {
         projectBtns[i].onclick = function () { changeText(i) }
