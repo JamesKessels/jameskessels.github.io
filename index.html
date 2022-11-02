@@ -101,24 +101,41 @@
 
             width: 250px;
             height: 20px;
+
+            background-color: var(--lightYellow);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+            border: none;
+            border-radius: 10px;
         }
 
         progress[value]::-webkit-progress-bar {
             background-color: var(--lightYellow);
-            border-radius: 2px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+            border: none;
+            border-radius: 10px;
         }
 
         progress[value]::-webkit-progress-value {
             background-color: rgba(0, 0, 0, 0);
-
             background-image:
                 -webkit-linear-gradient(top,
                     rgba(255, 255, 255, 0.132),
                     rgba(0, 0, 0, 0)),
                 -webkit-linear-gradient(left, rgb(255, 98, 0), rgba(255, 98, 0, 0.3));
 
-            border-radius: 2px;
+            border-radius: 10px;
+            background-size: 35px 20px, 100% 100%, 100% 100%;
+        }
+
+        progress[value]::-moz-progress-bar {
+            background-color: rgba(0, 0, 0, 0);
+            background-image:
+                -webkit-linear-gradient(top,
+                    rgba(255, 255, 255, 0.132),
+                    rgba(0, 0, 0, 0)),
+                -webkit-linear-gradient(left, rgb(255, 98, 0), rgba(255, 98, 0, 0.3));
+
+            border-radius: 10px;
             background-size: 35px 20px, 100% 100%, 100% 100%;
         }
     </style>
@@ -275,22 +292,22 @@
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <label for="file">HTML:</label><br>
-                                <progress class="shadow-sm" id="file" value="90" max="100"> 90% </progress>
+                                <progress id="file" value="90" max="100"> 90% </progress>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <label for="file">CSS:</label><br>
-                                <progress class="shadow-sm" id="file" value="85" max="100"> 85% </progress>
+                                <progress id="file" value="85" max="100"> 85% </progress>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <label for="file">Bootstrap:</label><br>
-                                <progress class="shadow-sm" id="file" value="50" max="100"> 50% </progress>
+                                <progress id="file" value="50" max="100"> 50% </progress>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <label for="file">Javascript:</label><br>
-                                <progress class="shadow-sm" id="file" value="60" max="100"> 60% </progress>
+                                <progress id="file" value="60" max="100"> 60% </progress>
                             </div>
                         </div>
                     </div>
@@ -382,7 +399,7 @@
                                         data-bs-slide-to="2" aria-label="Slide 3"></button>
                                 </div> -->
                                 <div id="projCarousel" class="carousel-inner">
-                                    
+
                                 </div>
                                 <button class="carousel-control-prev" type="button"
                                     data-bs-target="#carouselExampleControls" data-bs-slide="prev">
