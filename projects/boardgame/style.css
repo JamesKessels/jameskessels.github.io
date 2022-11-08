@@ -1,0 +1,207 @@
+:root {
+    box-sizing: border-box;
+
+    --red: #ff2e54;
+    --green: #15f16d;
+    --blue: #119aff;
+    --yellow: #f6be1a;
+
+    --space: #444444;
+    --board: #343434;
+    --background: #262626;
+
+    --death: #111;
+    --jail: #737373;
+    --back: #e13d6c;
+    --leap: #50e18f;
+    --firstBack: #810446;
+    --win: #76ce5e;
+
+    image-rendering: pixelated;
+}
+
+body {
+    background-color: var(--background);
+}
+
+.red {
+    color: var(--red);
+}
+.green {
+    color: var(--green);
+}
+.blue {
+    color: var(--blue);
+}
+.yellow {
+    color: var(--yellow);
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidePanel {
+    background-color: var(--board);
+    z-index: 30;
+    box-shadow: -20px 0 50px #000;
+}
+
+.sidePanel > div > div {
+    min-height: 500px;
+}
+
+button[data-bgcol="red"] {
+    background-color: var(--red);
+}
+button[data-bgcol="green"] {
+    background-color: var(--green);
+}
+button[data-bgcol="blue"] {
+    background-color: var(--blue);
+}
+button[data-bgcol="yellow"] {
+    background-color: var(--yellow);
+}
+
+.indicator {
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: var(--space);
+
+    margin: auto auto 5px;
+    padding: 0 50px;
+
+    font-size: 40px;
+    transition: 200ms;
+
+    width: fit-content;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.18);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.space {
+    aspect-ratio : 1 / 1;
+    position: relative;
+    width: 75px;
+
+    background-color: var(--space);;
+    margin: 5px;
+
+    /*border: 2px solid black;*/
+    border-radius: 10px;
+}
+
+.death {
+    background-image: url("assets/img/spaces/death.png");
+}
+.jail {
+    background-image: url("assets/img/spaces/jail.png");
+}
+.win {
+    background-image: url("assets/img/spaces/win.png");
+}
+.leap {
+    background-image: url("assets/img/spaces/leap.png");
+}
+.back {
+    background-image: url("assets/img/spaces/back.png");
+}
+.firstBack {
+    background-image: url("assets/img/spaces/firstBack.png");
+}
+
+.board {
+    margin-top: 60px;
+    min-width: 30px;
+    width: fit-content;
+    background-color: var(--board);
+    border-radius: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.18);
+
+    z-index: 30;
+}
+
+[data-player="1"] {
+    background-color: var(--red);
+}
+
+[data-player="2"] {
+    background-color: var(--green);
+}
+
+[data-player="3"] {
+    background-color: var(--blue);
+}
+
+[data-player="4"] {
+    background-color: var(--yellow);
+}
+
+.player {
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    border-radius: 100%;
+
+    border: solid 2px;
+}
+
+.player:first-child {
+    position: absolute;
+    left: 0;
+}
+
+.player:nth-child(2) {
+    position: absolute;
+    right: 0;
+}
+
+.player:nth-child(3) {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.player:nth-child(4) {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+button {
+    color: white;
+    font-size: 32px;
+    padding: 0 50px 0 50px;
+    border: 0;
+    border-radius: 50px;
+    transition: 200ms;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.18);
+    text-shadow:
+            0 0 2px black,
+            0 0 2px black,
+            2px 2px 4px rgba(0, 0, 0, 0.9),
+            2px 2px 4px rgba(0, 0, 0, 0.9),
+            2px 2px 4px rgba(0, 0, 0, 1);
+}
+
+button:hover {
+    background-blend-mode: darken;
+}
+
+button.debugRolls {
+    aspect-ratio: 1 / 1;
+    width: 50px;
+    padding: 0;
+    margin: auto;
+
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+button:disabled {
+    background-color: var(--space);
+    color: white;
+}
