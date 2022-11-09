@@ -16,10 +16,10 @@ const player = {
 const players = [];
 const colors = ["red", "green", "blue", "yellow"];
 const extraSpaces = [
-    ["jail", 0, 2],
+    ["jail", 0, 1],
     ["leap", 0, 5],
     ["back", 0, 5],
-    ["firstBack", 0, 2],
+    ["firstBack", 0, 1],
     ["death", 0, 1]
 ];
 
@@ -70,7 +70,6 @@ function roll(debug = false, number = 1) {
 }
 function setPlayer(diceRoll) {
     rollBtn.disabled = true;
-
     setLimitedInterval(movePiece, 200, diceRoll, checkSpace);
 }
 
@@ -263,23 +262,59 @@ function winCheck(win) {
 }
 
 function decideSpaces() {
-    for (let i = 1; i < maxSpaces - 1; i++) {
-        let spaceHere = (Math.random() * 50);
+    while(!allSpacesPlaced()) {
+        for (let i = 1; i < maxSpaces - 1; i++) {
+            let spaceHere = (Math.random() * 50);
 
-        if (spaceHere < 10) {
-            if (i < maxSpaces - 6 || i > maxSpaces - 2) {
-                let spacePicked = Math.floor(Math.random() * (extraSpaces.length - 1));
-                if (extraSpaces[spacePicked][1] < extraSpaces[spacePicked][2]) {
-                    spaces[i].className += " " + extraSpaces[spacePicked][0];
-                    extraSpaces[spacePicked][1]++;
-                }
-            }
-            else {
-                if (extraSpaces[4][1] < extraSpaces[4][2]) {
-                    spaces[i].className += " " + extraSpaces[4][0];
-                    extraSpaces[4][1]++;
+            if (spaces[i].className === "space") {
+                if (spaceHere < 10) {
+                    if (i < maxSpaces - 6 || i > maxSpaces - 2) {
+                        let spacePicked = Math.floor(Math.random() * (extraSpaces.length - 1));
+
+                            if (extraSpaces[spacePicked][1] < extraSpaces[spacePicked][2]) {
+                                if (extraSpaces[spacePicked][0] === "leap" || extraSpaces[spacePicked][0] === "firstBack") {
+                                    if (!spaces[i+3].classList.contains("back")) {
+                                        spaces[i].className += " " + extraSpaces[spacePicked][0];
+                                        extraSpaces[spacePicked][1]++;
+                                    }
+                                }
+
+                                else if (extraSpaces[spacePicked][0] === "back") {
+                                    if ((i - 3 > 0)) {
+                                        if (!(spaces[i-3].classList.contains("leap") || spaces[i-3].classList.contains("firstBack"))) {
+                                            spaces[i].className += " " + extraSpaces[spacePicked][0];
+                                            extraSpaces[spacePicked][1]++;
+                                        }
+                                    }
+                                    else {
+                                        spaces[i].className += " " + extraSpaces[spacePicked][0];
+                                        extraSpaces[spacePicked][1]++;
+                                    }
+                                }
+                                else {
+                                    spaces[i].className += " " + extraSpaces[spacePicked][0];
+                                    extraSpaces[spacePicked][1]++;
+                                }
+                            }
+                        }
+                    else {
+                        if (extraSpaces[4][1] < extraSpaces[4][2]) {
+                            spaces[i].className += " " + extraSpaces[4][0];
+                            extraSpaces[4][1]++;
+                        }
+                    }
                 }
             }
         }
     }
+}
+
+function allSpacesPlaced() {
+    for (let i = 0; i < extraSpaces.length; i++) {
+        if (extraSpaces[i][1] < extraSpaces[i][2]) {
+            return false
+        }
+    }
+
+    return true;
 }
