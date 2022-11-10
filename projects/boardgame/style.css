@@ -20,6 +20,7 @@
 
 body {
     background-color: var(--background);
+    image-rendering: pixelated;
 }
 
 .red {
@@ -80,15 +81,28 @@ button[data-bgcol="yellow"] {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
+.boardwrap {
+
+}
+
+.board {
+    aspect-ratio: 1 / 1;
+
+    background-color: var(--board);
+    border-radius: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.18);
+    z-index: 30;
+
+    height: 100vh;
+}
+
 .space, .empty {
     aspect-ratio : 1 / 1;
     position: relative;
-    width: 75px;
 
     background-color: var(--space);;
     margin: 5px;
 
-    /*border: 2px solid black;*/
     border-radius: 10px;
 }
 
@@ -115,37 +129,29 @@ button[data-bgcol="yellow"] {
     background-image: url("assets/img/spaces/firstBack.svg");
 }
 
-.board {
-    background-color: var(--board);
-    border-radius: 20px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.18);
-    z-index: 30;
-    max-width: 100%;
-}
-
-[data-player="1"] {
+[data-player="0"] {
     /*background-color: var(--red);*/
     background-image: url("assets/img/general/player1.svg")
 }
 
-[data-player="2"] {
+[data-player="1"] {
     /*background-color: var(--green);*/
     background-image: url("assets/img/general/player2.svg")
 }
 
-[data-player="3"] {
+[data-player="2"] {
     /*background-color: var(--blue);*/
     background-image: url("assets/img/general/player3.svg")
 }
 
-[data-player="4"] {
+[data-player="3"] {
     /*background-color: var(--yellow);*/
     background-image: url("assets/img/general/player4.svg")
 }
 
 .player {
-    width: 33.33333%;
-    height: 33.33333%;
+    width: calc((1/3) * 100%);
+    height: calc((1/3) * 100%);
     margin: 5px;
 }
 
@@ -195,7 +201,7 @@ button.debugRolls {
     aspect-ratio: 1 / 1;
     width: 50px;
     padding: 0;
-    margin: auto;
+    margin: 0 3px;
 
     font-size: 20px;
     border-radius: 5px;
