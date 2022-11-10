@@ -38,8 +38,6 @@ function setLimitedInterval(callback, delay, repetitions, afterRepeat = function
 
 function roll(debug = false, number = 1) {
     rollBtn.disabled = true;
-    toggleDebugButtons(true);
-
     statusText.innerHTML = "";
     let progress = true;
     let dice;
@@ -215,7 +213,6 @@ function nextTurn(movingPlayer = currPlayer) {
             setLimitedInterval(function() {}, 2000, 1, function() {nextTurn()});
         }
         else {
-            toggleDebugButtons(false);
             rollBtn.disabled = false;
         }
     }
