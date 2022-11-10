@@ -73,7 +73,7 @@ function determineId(fixedId = -1) {
 function determinePlayerStatus(dead = false, dir = 1, fixedId = -1) {
     let movingPlayer = determineId(fixedId);
 
-    if (!(dead && players[movingPlayer].playerSpace + dir < 0)) { players[movingPlayer].playerSpace += dir; }
+    if (!(dead || players[movingPlayer].playerSpace + dir < 0)) { players[movingPlayer].playerSpace += dir; }
     movePiece(movingPlayer);
 }
 
