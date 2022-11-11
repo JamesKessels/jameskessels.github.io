@@ -36,7 +36,7 @@ let boards = [
 
 let currBoard = [];
 let maxSpaces = 0;
-let maxPlayers = 4;
+let maxPlayers = 0;
 
 const actionSpaces = [
     ["jail", 0, 1],
@@ -45,8 +45,6 @@ const actionSpaces = [
     ["firstBack", 0, 1],
     ["death", 0, 1]
 ];
-
-document.body.onload = function() {generateBoard(0); boardPlacements()};
 
 //functions
 function generateBoard(boardId = 0) {
@@ -144,7 +142,7 @@ function setActionSpaces() {
                 }
 
                 catch {
-                    console.log("could not check 3 spaces back");
+                    
                 }
             }
 

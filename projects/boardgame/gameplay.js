@@ -9,15 +9,12 @@ const player = {
     playerId: 0,
     playerSpace: 0,
     jailed: false,
+
+    playerName: 0,
+    playerColor: 0,
 }
 const players = [];
-const colors = ["red", "green", "blue", "yellow"];
-
-for (let i = 0; i < maxPlayers; i++) {
-    players.push(Object.create(player));
-    players[i].playerId = i;
-    players[i].playerSpace = 0;
-}
+const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
 
 let currPlayer = 0;
 let win = false;
@@ -38,6 +35,8 @@ function setLimitedInterval(callback, delay, repetitions, afterRepeat = function
 
 function roll(debug = false, number = 1) {
     rollBtn.disabled = true;
+    toggleDebugButtons(true);
+
     statusText.innerHTML = "";
     let progress = true;
     let dice;
@@ -73,7 +72,7 @@ function determineId(fixedId = -1) {
 function determinePlayerStatus(dead = false, dir = 1, fixedId = -1) {
     let movingPlayer = determineId(fixedId);
 
-    if (!(dead || players[movingPlayer].playerSpace + dir < 0)) { players[movingPlayer].playerSpace += dir; }
+    if (!(dead && players[movingPlayer].playerSpace + dir < 0)) { players[movingPlayer].playerSpace += dir; }
     movePiece(movingPlayer);
 }
 
@@ -105,14 +104,14 @@ function checkSpace(fixedId = -1) {
             determinePlayerStatus(true, 0);
         }
 
-        updateStatusText(("Player " + (currPlayer + 1) + " has perished."));
+        updateStatusText(players[currPlayer].playerName + " has perished.");
     }
     if (currSpace.contains("jail")) {
         callback = function() {
             players[movingPlayer].jailed = true;
         }
 
-        updateStatusText(("Player " + (currPlayer + 1) + " is in jail. They will skip the next turn."));
+        updateStatusText(players[currPlayer].playerName + " is in jail. They will skip the next turn.");
     }
     if (currSpace.contains("leap")) {
         callback = function() {
@@ -121,7 +120,7 @@ function checkSpace(fixedId = -1) {
         repetitions = 3;
         afterRepeat = function() {checkSpace(movingPlayer)};
 
-        updateStatusText(("Player " + (currPlayer + 1) + " leaps forward another 3 spaces!"));
+        updateStatusText(players[currPlayer].playerName + " leaps forward another 3 spaces!");
     }
     if (currSpace.contains("back")) {
         callback = function() {
@@ -130,7 +129,7 @@ function checkSpace(fixedId = -1) {
         repetitions = 3;
         afterRepeat = function() {checkSpace(movingPlayer)};
 
-        updateStatusText(("Player " + (currPlayer + 1) + " falls back 3 spaces."));
+        updateStatusText(players[currPlayer].playerName + " falls back 3 spaces.");
     }
 
     let playerPositions = findPositions();
@@ -145,7 +144,7 @@ function checkSpace(fixedId = -1) {
             let thisPlayer = playerPositions[0][j].dataset.player
             if (thisPlayer === currPlayer.toString()) {
                 currPlayerFirst = true;
-                updateStatusText("Player " + (currPlayer + 1) + " leaps forward another 3 spaces!");
+                updateStatusText(players[currPlayer].playerName + " leaps forward another 3 spaces!");
                 callback = determinePlayerStatus;
                 afterRepeat = function() {checkSpace(movingPlayer)};
                 repetitions = 3;
@@ -158,7 +157,7 @@ function checkSpace(fixedId = -1) {
                 setLimitedInterval(function() { determinePlayerStatus(false, -1, (thisPlayer)) }, 200, 3, function() {nextTurn(movingPlayer)});
             }
 
-            statusText.innerHTML = "Player " + (currPlayer + 1) + " has sent their ";
+            statusText.innerHTML = players[currPlayer].playerName + " has sent their ";
             if (playerPositions[0].length > 1) {
                 statusText.innerHTML += "opponents in first place ";
             }
@@ -196,7 +195,7 @@ function nextTurn(movingPlayer = currPlayer) {
         winCheck(win);
 
         if (!win) {
-            if (currPlayer < 3)
+            if (currPlayer < (maxPlayers - 1))
                 currPlayer++;
             else
                 currPlayer = 0;
@@ -208,11 +207,12 @@ function nextTurn(movingPlayer = currPlayer) {
         if (players[currPlayer].jailed === true) {
             players[currPlayer].jailed = false;
 
-            updateStatusText(("Player " + (currPlayer + 1) + " is still in jail. They will be freed on their next turn."));
+            updateStatusText((players[currPlayer].playerName + " is still in jail. They will be freed on their next turn."));
 
             setLimitedInterval(function() {}, 2000, 1, function() {nextTurn()});
         }
         else {
+            toggleDebugButtons(false);
             rollBtn.disabled = false;
         }
     }
@@ -220,25 +220,25 @@ function nextTurn(movingPlayer = currPlayer) {
 
 function winCheck(win) {
     if (win) {
-        statusText.innerHTML = "Player " + (currPlayer + 1) + " wins!";
+        statusText.innerHTML = players[currPlayer].playerName + " wins!";
     }
 }
 
 function updateText() {
     let indicatorText = document.querySelector(".indicator");
-    indicatorText.className = "indicator " + colors[currPlayer];
-    indicatorText.innerText = "Player " + (currPlayer + 1);
+    indicatorText.className = "indicator " + colors[players[currPlayer].playerColor].toString();
+    indicatorText.children[0].innerText = players[currPlayer].playerName;
 }
 
 function updateButton() {
-    rollBtn.dataset.bgcol = colors[currPlayer];
+    rollBtn.dataset.bgcol = colors[players[currPlayer].playerColor];
 }
 
 function updateRollText(roll, progress = true) {
-    rollText.innerHTML = "Player " + (currPlayer + 1) + "'s roll: " + roll;
+    rollText.innerHTML = players[currPlayer].playerName + "'s roll: " + roll;
 
     if (!progress) {
-        updateStatusText("Player " + (currPlayer + 1) + " could not progress.");
+        updateStatusText(players[currPlayer].playerName + " could not progress.");
     }
 }
 

@@ -1,21 +1,36 @@
 :root {
     box-sizing: border-box;
 
-    --red: #ff2e54;
+    --red: #FF006E;
     --green: #15f16d;
     --blue: #119aff;
     --yellow: #f6be1a;
+    --purple: #bc57ff;
+    --orange: #ff7a16;
 
+    --darkRed: #7e081f;
+    --darkGreen: #067238;
+    --darkBlue: #003964;
+    --darkYellow: #694801;
+    --darkPurple: #41066b;
+    --darkOrange: #692606;
+
+    --regularBtn: #6c6c6c;
     --space: #444444;
     --board: #343434;
     --background: #262626;
 
-    --death: #111;
-    --jail: #737373;
-    --back: #e13d6c;
-    --leap: #50e18f;
-    --firstBack: #810446;
-    --win: #76ce5e;
+    --p0: url("assets/img/general/playerRed.svg");
+    --p1: url("assets/img/general/playerGreen.svg");
+    --p2: url("assets/img/general/playerBlue.svg");
+    --p3: url("assets/img/general/playerYellow.svg");
+
+    --pRed: url("assets/img/general/playerRed.svg");
+    --pGreen: url("assets/img/general/playerGreen.svg");
+    --pBlue: url("assets/img/general/playerBlue.svg");
+    --pYellow: url("assets/img/general/playerYellow.svg");
+    --pPurple: url("assets/img/general/playerPurple.svg");
+    --pOrange: url("assets/img/general/playerOrange.svg");
 }
 
 body {
@@ -35,6 +50,12 @@ body {
 .yellow {
     color: var(--yellow);
 }
+.purple {
+    color: var(--purple);
+}
+.orange {
+    color: var(--orange);
+}
 
 .center {
     display: flex;
@@ -52,6 +73,15 @@ body {
     min-height: 60%;
 }
 
+.topPanel {
+    background-color: var(--board);
+    z-index: 35;
+    box-shadow: 0 -10px 50px #000;
+
+    font-weight: bold;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
 button[data-bgcol="red"] {
     background-color: var(--red);
 }
@@ -64,14 +94,38 @@ button[data-bgcol="blue"] {
 button[data-bgcol="yellow"] {
     background-color: var(--yellow);
 }
+button[data-bgcol="purple"] {
+    background-color: var(--purple);
+}
+button[data-bgcol="orange"] {
+    background-color: var(--orange);
+}
 
-.indicator {
+.bgRed {
+    background-color: var(--red);
+}
+.bgGreen {
+    background-color: var(--green);
+}
+.bgBlue {
+    background-color: var(--blue);
+}
+.bgYellow {
+    background-color: var(--yellow);
+}
+.bgPurple {
+    background-color: var(--purple);
+}
+.bgOrange {
+    background-color: var(--orange);
+}
+
+.indicator, .colorPicker, .textBox {
     border-radius: 5px;
     font-weight: bold;
     background-color: var(--space);
 
     margin: auto auto 5px;
-    padding: 0 50px;
 
     font-size: 40px;
     transition: 200ms;
@@ -81,8 +135,119 @@ button[data-bgcol="yellow"] {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
-.boardwrap {
+.indicator > p {
+    padding: 0 50px;
+}
 
+.playerBox {
+    position: relative;
+    margin-top: 50px;
+    border-radius: 10px;
+    height: 650px;
+}
+
+.atBottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 50px;
+}
+
+.radioContainer {
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    margin: 5px;
+}
+
+.radioContainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: solid 5px black;
+}
+
+.radioContainer:nth-child(1) > .checkmark {
+    background-color: var(--darkRed);
+}
+.radioContainer:nth-child(2) > .checkmark {
+    background-color: var(--darkGreen);
+}
+.radioContainer:nth-child(3) > .checkmark {
+    background-color: var(--darkBlue);
+}
+.radioContainer:nth-child(4) > .checkmark {
+    background-color: var(--darkYellow);
+}
+.radioContainer:nth-child(5) > .checkmark {
+    background-color: var(--darkPurple);
+}
+.radioContainer:nth-child(6) > .checkmark {
+    background-color: var(--darkOrange);
+}
+
+.radioContainer:nth-child(1):hover input ~ .checkmark {
+    background-color: var(--red);
+}
+.radioContainer:nth-child(2):hover input ~ .checkmark {
+    background-color: var(--green);
+}
+.radioContainer:nth-child(3):hover input ~ .checkmark {
+    background-color: var(--blue);
+}
+.radioContainer:nth-child(4):hover input ~ .checkmark {
+    background-color: var(--yellow);
+}
+.radioContainer:nth-child(5):hover input ~ .checkmark {
+    background-color: var(--purple);
+}
+.radioContainer:nth-child(6):hover input ~ .checkmark {
+    background-color: var(--orange);
+}
+
+.radioContainer:nth-child(1) input:checked ~ .checkmark {
+    background-color: var(--red);
+}
+.radioContainer:nth-child(2) input:checked ~ .checkmark {
+    background-color: var(--green);
+}
+.radioContainer:nth-child(3) input:checked ~ .checkmark {
+    background-color: var(--blue);
+}
+.radioContainer:nth-child(4) input:checked ~ .checkmark {
+    background-color: var(--yellow);
+}
+.radioContainer:nth-child(5) input:checked ~ .checkmark {
+    background-color: var(--purple);
+}
+.radioContainer:nth-child(6) input:checked ~ .checkmark {
+    background-color: var(--orange);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.radioContainer input:checked ~ .checkmark:after {
+    display: block;
 }
 
 .board {
@@ -131,22 +296,22 @@ button[data-bgcol="yellow"] {
 
 [data-player="0"] {
     /*background-color: var(--red);*/
-    background-image: url("assets/img/general/player1.svg")
+    background-image: var(--p0);
 }
 
 [data-player="1"] {
     /*background-color: var(--green);*/
-    background-image: url("assets/img/general/player2.svg")
+    background-image: var(--p1);
 }
 
 [data-player="2"] {
     /*background-color: var(--blue);*/
-    background-image: url("assets/img/general/player3.svg")
+    background-image: var(--p2);
 }
 
 [data-player="3"] {
     /*background-color: var(--yellow);*/
-    background-image: url("assets/img/general/player4.svg")
+    background-image: var(--p3);
 }
 
 .player {
@@ -210,4 +375,107 @@ button.debugRolls {
 button:disabled {
     background-color: var(--space);
     color: white;
+}
+
+.header {
+    height: 100px;
+    font-size: 50px;
+}
+
+input[type="number"] {
+    font-size: 40px;
+    height: 50px;
+    border-radius: 10px;
+    padding-left: 10px;
+    border: none;
+    width: 60px;
+
+    font-weight: bold;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+
+
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    opacity: 1;
+    background-color: white;
+}
+
+:focus-visible {
+    outline: none;
+}
+
+.playerBox {
+    background-size: 225px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.playerBox.bgRed {
+    background-image: var(--pRed);
+}
+
+.playerBox.bgGreen {
+    background-image: var(--pGreen);
+}
+.playerBox.bgBlue {
+    background-image: var(--pBlue);
+}
+
+.playerBox.bgYellow {
+    background-image: var(--pYellow);
+
+}
+.playerBox.bgPurple {
+    background-image: var(--pPurple);
+}
+
+.playerBox.bgOrange {
+    background-image: var(--pOrange);
+}
+
+.indicator, .colorPicker .textBox {
+    padding: 0;
+}
+
+.indicator, .colorPicker > input, .textBox > label > input {
+    background: transparent;
+    border: none;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+    font-weight: bold;
+    text-align: center;
+
+    width: 300px;
+    margin: 0 50px;
+
+    caret: currentColor;
+}
+
+.indicator.red > *, .textBox.red > label > input {
+    color: var(--red);
+}
+
+.indicator.green > *, .textBox.green > label > input {
+    color: var(--green);
+}
+
+.indicator.blue > *, .textBox.blue > label > input {
+    color: var(--blue);
+}
+
+.indicator.yellow > *, .textBox.yellow > label > input {
+    color: var(--yellow);
+}
+
+.indicator.purple > *, .textBox.purple > label > input {
+    color: var(--purple);
+}
+
+.indivator.orange > *, .textBox.orange > label > input {
+    color: var(--orange);
+}
+
+button.startBtn {
+    background-color: var(--regularBtn);
 }
