@@ -35,7 +35,6 @@ function setLimitedInterval(callback, delay, repetitions, afterRepeat = function
 
 function roll(debug = false, number = 1) {
     rollBtn.disabled = true;
-    toggleDebugButtons(true);
 
     statusText.innerHTML = "";
     let progress = true;
@@ -72,7 +71,7 @@ function determineId(fixedId = -1) {
 function determinePlayerStatus(dead = false, dir = 1, fixedId = -1) {
     let movingPlayer = determineId(fixedId);
 
-    if (!(dead && players[movingPlayer].playerSpace + dir < 0)) { players[movingPlayer].playerSpace += dir; }
+    if (!(dead || players[movingPlayer].playerSpace + dir < 0)) { players[movingPlayer].playerSpace += dir; }
     movePiece(movingPlayer);
 }
 
@@ -212,7 +211,6 @@ function nextTurn(movingPlayer = currPlayer) {
             setLimitedInterval(function() {}, 2000, 1, function() {nextTurn()});
         }
         else {
-            toggleDebugButtons(false);
             rollBtn.disabled = false;
         }
     }
