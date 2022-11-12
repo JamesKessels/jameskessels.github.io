@@ -444,7 +444,7 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 0;
 }
 
-.indicator, .colorPicker > input, .textBox > label > input {
+.indicator > input, .colorPicker > input, .textBox > label > input {
     background: transparent;
     border: none;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
