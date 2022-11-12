@@ -10,13 +10,14 @@
 
     <script src="setup.js" defer></script>
     <script src="boards.js" defer></script>
+    <script src="debug.js" defer></script>
     <script src="gameplay.js" defer></script>
 
     <title>Board Game Test</title>
 </head>
 <body>
     <div id="setup" class="container-fluid">
-        <div class="row bg-dark text-light text-center justify-content-center">
+        <div class="row text-light text-center justify-content-center">
             <div class="col topPanel header center">
                 <label for="playerCount">Players:</label>
                 <input type="number" class="ms-5" name="playerCount" value="4" min="2" max="4" id="playerCount">
@@ -168,9 +169,46 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="row center mt-5">
-            <button class="w-25 startBtn">Start Game!</button>
+    <div id="boardSetup" class="container-fluid d-none">
+        <div class="row center">
+            <p class="indicator-light text-center text-white w-25">Select a Board</p>
+        </div>
+        <div class="row text-light text-center justify-content-center">
+            <div class="col">
+                <div class="row justify-content-center">
+                    <div class="boardwrap">
+                        <div class="board board-sm p-3 d-grid">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row justify-content-center">
+                    <div class="boardwrap">
+                        <div class="board board-sm p-3 d-grid">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row justify-content-center">
+                    <div class="boardwrap">
+                        <div class="board board-sm p-3 d-grid">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row center mt-5 atBottom">
+            <button class="w-25 startBtn">Select Board</button>
         </div>
     </div>
 

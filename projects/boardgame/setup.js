@@ -7,16 +7,19 @@ const textColors = ["red", "green", "blue", "yellow", "purple", "orange"]
 const textBoxes = document.querySelectorAll(".textBox");
 
 const startBtn = document.querySelector(".startBtn");
-startBtn.onclick = function () {startGame()}
+startBtn.onclick = function () {changeToBoardSelection()}
 
 const root = document.querySelector(":root");
 
 const playerSelection = document.querySelector("#setup");
+const boardSelection = document.querySelector("#boardSetup");
 const game = document.querySelector("#game");
 
 let activeColors = getActiveColors();
 let playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
 let allPlayers = 4;
+
+let selectedBoard = 0;
 
 for (let cb = 0; cb < colorBoxes.length; cb++) { // for each set of radio buttons
     for (let rb = 0; rb < colorBoxes[cb].children.length; rb++) { // for each radio button
@@ -30,7 +33,25 @@ for (let tb = 0; tb < textBoxes.length; tb++) {
 }
 
 numberBox.onchange = function () {setCols(numberBox.value);}
-document.body.onload = function () {setCols(numberBox.value);}
+document.body.onload = function () {
+    setCols(numberBox.value);
+    for (let i = 0; i < (boardDivs.length - 1); i++) {
+        generateBoard(i, boardDivs[i]);
+        boardDivs[i].onclick = function () {
+            selectBoard(i);
+        }
+    }
+}
+
+function selectBoard(boardId) {
+    selectedBoard = boardId;
+
+    for (let i = 0; i < (boardDivs.length - 1); i++) {
+        boardDivs[i].classList.remove("selected");
+    }
+
+    boardDivs[boardId].classList.add("selected");
+}
 
 function setCols (playerCount) {
     if (playerCount > 4) {
@@ -92,8 +113,14 @@ function saveName(playerId, name) {
     playerNames[playerId] = name;
 }
 
-function startGame() {
+function changeToBoardSelection () {
     playerSelection.classList.add("d-none");
+    boardSelection.classList.remove("d-none");
+    startBtn.innerText = "Start Game!";
+    startBtn.onclick = function () {startGame()}
+}
+
+function startGame() {
     game.classList.remove("d-none");
 
     playerSetUp();
@@ -101,8 +128,21 @@ function startGame() {
     updateText();
     updateButton();
 
-    generateBoard(0);
+    emptyBoards();
+
+    startBtn.classList.add("d-none");
+    boardSelection.classList.add("d-none");
+
+
+    generateBoard(selectedBoard, boardDivs[3]);
     boardPlacements()
+}
+
+function emptyBoards() {
+    currBoard = [];
+    for (let i = 0; i < (boardDivs.length - 1); i++) {
+        boardDivs[i].innerHTML = "";
+    }
 }
 
 function playerSetUp() {

@@ -120,7 +120,7 @@ button[data-bgcol="orange"] {
     background-color: var(--orange);
 }
 
-.indicator, .colorPicker, .textBox {
+.indicator, .colorPicker, .textBox, .indicator-light {
     border-radius: 5px;
     font-weight: bold;
     background-color: var(--space);
@@ -151,7 +151,7 @@ button[data-bgcol="orange"] {
     left: 0;
     right: 0;
     bottom: 0;
-    margin-bottom: 50px;
+    margin: 0 0 50px;
 }
 
 .radioContainer {
@@ -259,6 +259,11 @@ button[data-bgcol="orange"] {
     z-index: 30;
 
     height: 100vh;
+}
+
+.board-sm {
+    height: auto;
+    margin: 10%;
 }
 
 .space, .empty {
@@ -478,4 +483,20 @@ input[type=number]::-webkit-outer-spin-button {
 
 button.startBtn {
     background-color: var(--regularBtn);
+}
+
+#boardSetup {
+    margin-top: 6%;
+}
+
+.board-sm.selected {
+    border: solid 2px white;
+}
+
+.board-sm:hover {
+    cursor: pointer;
+}
+
+.indicator-light {
+    background-color: var(--board)
 }
